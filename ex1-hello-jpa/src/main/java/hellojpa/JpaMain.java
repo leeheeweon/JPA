@@ -18,26 +18,12 @@ public class JpaMain {
         try {
             //저장
 
-
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
-
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-//            em.flush();
-//            em.clear();
-
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
-
-            for (Member m : members) {
-                System.out.println("test===== " + m.getUsername());
-            }
-
+            Movie movie = new Movie();
+            movie.setDirector("aaa");
+            movie.setActor("bbb");
+            movie.setName("바람과함꼐사라지다");
+            movie.setPrice(10000);
+            em.persist(movie);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
