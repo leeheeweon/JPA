@@ -8,7 +8,7 @@ import java.util.List;
 public class Team {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "TEAM_ID")
     private Long id;
     private String name;
@@ -39,6 +39,4 @@ public class Team {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
-
-
 }
