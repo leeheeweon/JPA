@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
+@SequenceGenerator(name = "MEMBER_SEQ_GEN",sequenceName = "MEMBER_SEQ")
 public class Member {
 
     @Id
@@ -14,7 +15,7 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
