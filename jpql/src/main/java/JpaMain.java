@@ -1,4 +1,6 @@
 import jpql.Member;
+import jpql.MemberDTO;
+import jpql.Team;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,13 +14,18 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
             Member member = new Member();
             member.setUsername("leeheeweon");
             member.setAge(10);
+            member.setTeam(team);
 
-            TypedQuery<Member> query = em.createQuery("select m from Member m", Member.class);
-            Member singleResult = query.getSingleResult();
+            List<Member> resultList = em.createQuery(
+                    "select m  from Member m left join m.team t", Member.class).getResultList();
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

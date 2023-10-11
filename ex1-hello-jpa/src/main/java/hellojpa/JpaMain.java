@@ -15,15 +15,8 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //저장
-            Parent parent = new Parent();
-            Child child1 = new Child();
-            Child child2 = new Child();
-            parent.addChild(child1);
-            parent.addChild(child2);
-
-            em.persist(parent);
-
+            List resultList = em.createNativeQuery("select * from Member").getResultList();
+            
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
