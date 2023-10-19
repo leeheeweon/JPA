@@ -31,7 +31,7 @@ public class OrderQueryService {
     }
 
     public List<OrderDto> ordersV2() {
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
         return orders.stream().map(OrderDto::new).collect(Collectors.toList());
     }
 

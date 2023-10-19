@@ -1,7 +1,7 @@
 package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.MemberRepositoryOld;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ class MemberServiceTest {
     @Autowired
     MemberService memberService;
     @Autowired
-    MemberRepository memberRepository;
+    MemberRepositoryOld memberRepositoryOld;
 
     @Test
     @Rollback(value = false)
@@ -26,7 +26,7 @@ class MemberServiceTest {
         member.setName("leeheeweon");
 
         Long savedId = memberService.join(member);
-        Assertions.assertEquals(member, memberRepository.member(savedId));
+        Assertions.assertEquals(member, memberRepositoryOld.member(savedId));
     }
 
     @Test
