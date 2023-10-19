@@ -6,7 +6,7 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
-import jpabook.jpashop.repository.MemberRepositoryOld;
+import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final MemberRepositoryOld memberRepositoryOld;
+    private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
     /**
@@ -28,7 +28,7 @@ public class OrderService {
      */
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
-        Member member = memberRepositoryOld.member(memberId);
+        Member member = memberRepository.member(memberId);
         Item item = itemRepository.findOne(itemId);
 
         Delivery delivery = new Delivery();
@@ -52,6 +52,6 @@ public class OrderService {
 
     //검색
     public List<Order> findOrders(OrderSearch orderSearch) {
-        return orderRepository.findAll(orderSearch);
+        return orderRepository.findAllByCriteria(orderSearch);
     }
 }
