@@ -11,6 +11,7 @@ import study.datajpa.repository.MemberRepository;
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
+
     private final MemberRepository memberRepository;
 
     @GetMapping("/members/{id}")
