@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -34,13 +35,13 @@ class MemberRepositoryTest {
 
     @Test
     public void testMember() {
-            Member member = new Member("memberA");
+        Member member = new Member("memberA");
 
-            Member savedMember = memberRepository.save(member);
-            Member findMember = memberRepository.findById(savedMember.getId()).orElse(null);
+        Member savedMember = memberRepository.save(member);
+        Member findMember = memberRepository.findById(savedMember.getId()).orElse(null);
 
-            assertThat(findMember.getId()).isEqualTo(member.getId());
-            assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
+        assertThat(findMember.getId()).isEqualTo(member.getId());
+        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
     }
 
     @Test
@@ -91,7 +92,7 @@ class MemberRepositoryTest {
         memberRepository.save(m1);
         memberRepository.save(m2);
 
-        List<Member> result = memberRepository.findUser("AAA",10);
+        List<Member> result = memberRepository.findUser("AAA", 10);
         assertThat(result.get(0)).isEqualTo(m1);
     }
 
@@ -177,11 +178,11 @@ class MemberRepositoryTest {
 
     @Test
     public void bulkUpdate() {
-        memberRepository.save(new Member("member1",10));
-        memberRepository.save(new Member("member2",19));
-        memberRepository.save(new Member("member3",20));
-        memberRepository.save(new Member("member4",21));
-        memberRepository.save(new Member("member5",40));
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 19));
+        memberRepository.save(new Member("member3", 20));
+        memberRepository.save(new Member("member4", 21));
+        memberRepository.save(new Member("member5", 40));
 
         int resultCount = memberRepository.bulkAgePlus(20);
         assertThat(resultCount).isEqualTo(3);
@@ -241,4 +242,56 @@ class MemberRepositoryTest {
         List<Member> result = memberRepository.findMemberCustom();
     }
 
+    @Test
+    public void queryByExample() {
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        Member member = new Member("m1");
+        Example<Member> example = Example.of(member);
+        List<Member> result = memberRepository.findAll(example);
+
+        assertThat(result.get(0).getUsername()).isEqualTo("m1");
+    }
+
+    @Test
+    public void projections() {
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        memberRepository.findProjectionsByUsername("m1");
+    }
+
+    @Test
+    public void nativeQuery() {
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+
+        em.flush();
+        em.clear();
+
+        Member result = memberRepository.findByNativeQuery("m1");
+        System.out.println("result = " + result);
+    }
 }
