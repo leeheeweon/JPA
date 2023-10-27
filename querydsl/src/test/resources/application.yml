@@ -7,15 +7,15 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+     ddl-auto: create
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+#       show_sql: true
+       format_sql: true
 
   config:
     activate:
-      on-profile: local
+      on-profile: test
 
 logging.level:
   org.hibernate.SQL: debug
