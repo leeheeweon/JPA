@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+안녕하세요! 이희원 세미나에 오신것을 환영합니다.
+<br>
+<h3>V1 : JPA CRUD</h3>
+<li>
+    <ul><a th:href="@{v1/c}">v1 create</a></ul>
+    <ul><a th:href="@{v1/r}">v1 read</a></ul>
+    <ul><a th:href="@{v1/u}">v1 update</a></ul>
+    <ul><a th:href="@{v1/d}">v1 delete</a></ul>
+</li>
+
+<br>
+
+<h3>V2 : JPQL을 사용하여 리팩토링</h3>
+<li>
+    <ul><a th:href="@{v1/c}">v2 create</a></ul>
+    <ul><a th:href="@{v1/r}">v2 read</a></ul>
+    <ul><a th:href="@{v1/u}">v2 update</a></ul>
+    <ul><a th:href="@{v1/d}">v2 delete</a></ul>
+</li>
+<br>
+
+<h3>V3 : Spring data jpa 를 사용하여 리팩토링</h3>
+<li>
+    <ul><a th:href="@{v1/c}">v3 create</a></ul>
+    <ul><a th:href="@{v1/r}">v3 read</a></ul>
+    <ul><a th:href="@{v1/u}">v3 update</a></ul>
+    <ul><a th:href="@{v1/d}">v3 delete</a></ul>
+</li>
+</body>
+</html>
