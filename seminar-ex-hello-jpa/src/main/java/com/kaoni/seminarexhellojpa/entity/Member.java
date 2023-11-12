@@ -3,10 +3,12 @@ package com.kaoni.seminarexhellojpa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString(of = {"id","username"})
 public class Member {
     @Id
     @GeneratedValue
