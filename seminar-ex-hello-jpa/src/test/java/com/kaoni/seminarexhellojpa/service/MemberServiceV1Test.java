@@ -2,11 +2,9 @@ package com.kaoni.seminarexhellojpa.service;
 
 import com.kaoni.seminarexhellojpa.entity.Member;
 import com.kaoni.seminarexhellojpa.entity.Team;
-import com.kaoni.seminarexhellojpa.repository.MemberRepository;
 import com.kaoni.seminarexhellojpa.repository.MemberRepositoryV1;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,20 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
-class MemberServiceTest {
+class MemberServiceV1Test {
 
     @PersistenceContext
     EntityManager em;
 
     @Autowired
     MemberRepositoryV1 repositoryV1;
-
-    @Autowired
-    MemberRepository repositoryV2;
 
     @Test
     void saveV1() {

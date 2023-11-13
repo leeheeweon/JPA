@@ -1,19 +1,8 @@
 package com.kaoni.seminarexhellojpa.repository;
 
 import com.kaoni.seminarexhellojpa.entity.Team;
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-@Transactional
-@RequiredArgsConstructor
-public class TeamRepository {
-private final EntityManager em;
-
-    public void save(Team team) {
-        em.persist(team);
-    }
-
+public interface TeamRepository extends JpaRepository<Team, Long> {
+    
 }
