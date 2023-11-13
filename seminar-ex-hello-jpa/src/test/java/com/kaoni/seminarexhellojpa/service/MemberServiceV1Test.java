@@ -39,9 +39,8 @@ class MemberServiceV1Test {
     @Rollback(value = false)
     void updateV1() {
         Member member = getMember();
-        Member findMember = repositoryV1.find(member.getId());
+        Member findMember = repositoryV1.update(member.getId());
 
-        findMember.setUsername("kaoni");
         System.out.println("영속성 컨텍스트, 변경 감지(Dirty Checking)");
         System.out.println("findMember = " + findMember);
     }
