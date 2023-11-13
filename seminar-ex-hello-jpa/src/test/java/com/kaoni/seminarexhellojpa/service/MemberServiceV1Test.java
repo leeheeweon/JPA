@@ -28,7 +28,7 @@ class MemberServiceV1Test {
         Team team = new Team("Kaoni");
         em.persist(team);
         Member member = new Member("leeheeweon", team);
-        em.persist(member);
+        repositoryV1.save(member);
 
         Member findMember = em.find(Member.class, member.getId());
         System.out.println("영속성 컨텍스트, 1차 캐쉬 저장, select 문 발생 x em.persist시 영속성 컨텍스트 1차 캐쉬에서 가져옴 ");
@@ -39,8 +39,8 @@ class MemberServiceV1Test {
     @Rollback(value = false)
     void updateV1() {
         Member member = getMember();
+        Member findMember = repositoryV1.find(member.getId());
 
-        Member findMember = em.find(Member.class, member.getId());
         findMember.setUsername("kaoni");
         System.out.println("영속성 컨텍스트, 변경 감지(Dirty Checking)");
         System.out.println("findMember = " + findMember);
@@ -67,7 +67,7 @@ class MemberServiceV1Test {
 
         for (int i = 0; i < 10; i++) {
             Member member = new Member("leeheeweon" + i, team);
-            em.persist(member);
+            repositoryV1.save(member);
         }
 
         System.out.println("----JPQL SELECT LIST----");
@@ -111,7 +111,7 @@ class MemberServiceV1Test {
         em.persist(team);
 
         Member member = new Member("leeheeweon", team);
-        em.persist(member);
+        repositoryV1.save(member);
         return member;
     }
 }
